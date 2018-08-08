@@ -1,7 +1,7 @@
 # ARCoreTest
 AR Core Test with Asset Bundles
 
-**Using Unity 2017.4.1f1**
+**Using Unity 2018.1.6f1**
 
 App on phone needs permissions to camera. On Android turn on dev mode, then long press app icon to get to "App Info". Go to permissions and toggle on camera permissions.
 
