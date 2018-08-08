@@ -26,6 +26,7 @@ namespace GoogleARCore.HelloAR
     using UnityEngine;
     using UnityEngine.Rendering;
     using GoogleARCore;
+    using System;
 
 
 
@@ -35,7 +36,9 @@ namespace GoogleARCore.HelloAR
     public class HelloARController : MonoBehaviour
     {
 
-        public string url;
+        public string GoogleDriveOriginalurl;
+        private GameObject model;
+        private String url;
 
         /// <summary>
         /// The first-person camera being used to render the passthrough camera.
@@ -78,17 +81,26 @@ namespace GoogleARCore.HelloAR
             new Color(1.0f, 0.921f, 0.231f),
             new Color(1.0f, 0.756f, 0.027f)
         };
-
-        private GameObject model;
-
+        
 
         //Asset Bundles
         public void Start()
         {
+            ChangeToMagicURL();
             StartCoroutine("DownloadObject");
         }
 
-        
+        private void ChangeToMagicURL()
+        {
+            string[] sections = GoogleDriveOriginalurl.Split('/');
+
+            var googleDriveID = sections[5];
+            Debug.Log("Google Drive ID: " + googleDriveID);
+
+            url = "https://drive.google.com/uc?export=download&id=" + googleDriveID;
+            Debug.Log(url);
+        }
+
 
         public IEnumerator DownloadObject()
         {
@@ -130,9 +142,9 @@ namespace GoogleARCore.HelloAR
                 planeObject.GetComponent<TrackedPlaneVisualizer>().SetTrackedPlane(m_newPlanes[i]);
 
                 // Apply a random color and grid rotation.
-                planeObject.GetComponent<Renderer>().material.SetColor("_GridColor", m_planeColors[Random.Range(0,
+                planeObject.GetComponent<Renderer>().material.SetColor("_GridColor", m_planeColors[UnityEngine.Random.Range(0,
                     m_planeColors.Length - 1)]);
-                planeObject.GetComponent<Renderer>().material.SetFloat("_UvRotation", Random.Range(0.0f, 360.0f));
+                planeObject.GetComponent<Renderer>().material.SetFloat("_UvRotation", UnityEngine.Random.Range(0.0f, 360.0f));
             }
 
             // Disable the snackbar UI when no planes are valid.
@@ -171,9 +183,11 @@ namespace GoogleARCore.HelloAR
                     anchor.transform);
 
                 // Andy should look at the camera but still be flush with the plane.
-                modelGo.transform.LookAt(m_firstPersonCamera.transform);
-                modelGo.transform.rotation = Quaternion.Euler(0.0f,
-                    modelGo.transform.rotation.eulerAngles.y, model.transform.rotation.z);
+                //modelGo.transform.LookAt(m_firstPersonCamera.transform);
+                //modelGo.transform.rotation = Quaternion.Euler(0.0f,
+                //    modelGo.transform.rotation.eulerAngles.y, model.transform.rotation.z);
+                modelGo.transform.localScale -= new Vector3(0.05F, 0.05F, 0.05F);
+                
 
                 // Use a plane attachment component to maintain Andy's y-offset from the plane
                 // (occurs after anchor updates).
