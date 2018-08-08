@@ -35,10 +35,9 @@ namespace GoogleARCore.HelloAR
     /// </summary>
     public class HelloARController : MonoBehaviour
     {
-
-        public string GoogleDriveOriginalurl;
+        //This path should look like this: https://drive.google.com/file/d/13mTn56hwOgxqAiLgJxNiL3ZjWMq8dLUS/view?usp=sharing
+        public string GoogleDriveOriginalUrl;
         private GameObject model;
-        private String url;
 
         /// <summary>
         /// The first-person camera being used to render the passthrough camera.
@@ -81,36 +80,31 @@ namespace GoogleARCore.HelloAR
             new Color(1.0f, 0.921f, 0.231f),
             new Color(1.0f, 0.756f, 0.027f)
         };
-        
 
         //Asset Bundles
         public void Start()
         {
-            ChangeToMagicURL();
             StartCoroutine("DownloadObject");
         }
 
-        private void ChangeToMagicURL()
-        {
-            string[] sections = GoogleDriveOriginalurl.Split('/');
-
-            var googleDriveID = sections[5];
-            Debug.Log("Google Drive ID: " + googleDriveID);
-
-            url = "https://drive.google.com/uc?export=download&id=" + googleDriveID;
-            Debug.Log(url);
-        }
-
-
         public IEnumerator DownloadObject()
         {
+            // Create new magic direct download URL
+            Debug.Log(GoogleDriveOriginalUrl);
+            string[] sections = GoogleDriveOriginalUrl.Split('/');
+
+            var googleDriveId = sections[5];
+            Debug.Log("Google Drive ID: " + googleDriveId);
+
+            var url = "https://drive.google.com/uc?export=download&id=" + googleDriveId;
+            Debug.Log(url);
+
             WWW www = new WWW(url);
             yield return www;
             var assetBundle = www.assetBundle;
             // I have a DemoScene Prefab inside my already created "room" AssetBundle
-            //model = Instantiate(assetBundle.LoadAsset("DemoScene")) as GameObject;
             model = assetBundle.LoadAsset("DemoScene") as GameObject;
-
+            // Then instantiate it on click below..
         }
 
         /// <summary>
@@ -186,7 +180,7 @@ namespace GoogleARCore.HelloAR
                 //modelGo.transform.LookAt(m_firstPersonCamera.transform);
                 //modelGo.transform.rotation = Quaternion.Euler(0.0f,
                 //    modelGo.transform.rotation.eulerAngles.y, model.transform.rotation.z);
-                modelGo.transform.localScale -= new Vector3(0.05F, 0.05F, 0.05F);
+                //modelGo.transform.localScale -= new Vector3(0.05F, 0.05F, 0.05F);
                 
 
                 // Use a plane attachment component to maintain Andy's y-offset from the plane
