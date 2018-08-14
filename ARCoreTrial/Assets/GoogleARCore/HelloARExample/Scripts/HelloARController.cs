@@ -36,7 +36,7 @@ namespace GoogleARCore.HelloAR
     public class HelloARController : MonoBehaviour
     {
         //This path should look like this: https://drive.google.com/file/d/13mTn56hwOgxqAiLgJxNiL3ZjWMq8dLUS/view?usp=sharing
-        public string GoogleDriveOriginalUrl;
+        public string DownloadUrl;
         private GameObject model;
 
         /// <summary>
@@ -89,17 +89,17 @@ namespace GoogleARCore.HelloAR
 
         public IEnumerator DownloadObject()
         {
-            // Create new magic direct download URL
-            Debug.Log(GoogleDriveOriginalUrl);
-            string[] sections = GoogleDriveOriginalUrl.Split('/');
+            //// Create new magic direct download URL
+            //Debug.Log(GoogleDriveOriginalUrl);
+            //string[] sections = GoogleDriveOriginalUrl.Split('/');
 
-            var googleDriveId = sections[5];
-            Debug.Log("Google Drive ID: " + googleDriveId);
+            //var googleDriveId = sections[5];
+            //Debug.Log("Google Drive ID: " + googleDriveId);
 
-            var url = "https://drive.google.com/uc?export=download&id=" + googleDriveId;
-            Debug.Log(url);
+            //var url = "https://drive.google.com/uc?export=download&id=" + googleDriveId;
+            //Debug.Log(url);
 
-            WWW www = new WWW(url);
+            WWW www = new WWW(DownloadUrl);
             yield return www;
             var assetBundle = www.assetBundle;
             // I have a DemoScene Prefab inside my already created "room" AssetBundle

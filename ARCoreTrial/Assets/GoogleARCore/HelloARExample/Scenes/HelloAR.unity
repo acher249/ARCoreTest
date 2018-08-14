@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26074b15f9c13404d858bfedb8b8c00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoogleDriveOriginalUrl: https://drive.google.com/file/d/1acdCmoWGD86AZYTbfJOZCk5Mfvmb28g_/view?usp=sharing
+  DownloadUrl: https://firebasestorage.googleapis.com/v0/b/assetbundle-b7e6c.appspot.com/o/roomwalkandroid?alt=media&token=c643b7aa-99d5-425d-8b21-73337ff08d8c
   m_firstPersonCamera: {fileID: 989943870}
   m_trackedPlanePrefab: {fileID: 1654175882956584, guid: 6a35c744e5010405c847fad90282d2be,
     type: 2}
